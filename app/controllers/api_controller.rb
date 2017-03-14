@@ -19,7 +19,7 @@ class ApiController < ApplicationController
     
     private
         def gradclass_params
-            params.permit(:name, :startTime, :endTime, :maximumStudents)
+            params.permit(:name, :startTime, :endTime, :maximumStudents, :professorName)
         end
         
        
