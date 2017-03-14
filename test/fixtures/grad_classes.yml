@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  startTime: 2017-03-13 21:49:26
+  endTime: 2017-03-13 21:49:26
+  maximumStudents: 1
+
+two:
+  name: MyString
+  startTime: 2017-03-13 21:49:26
+  endTime: 2017-03-13 21:49:26
+  maximumStudents: 1

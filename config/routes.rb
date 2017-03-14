@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   
- get 'welcome' => 'pages#home'
+ get '/' => 'api#home'
+ 
+ 
+get 'api/class', to: 'api#displayform'
+post 'api/class', to: 'api#create'
+
+ #get 'api/class' => 'api#displayform'
+ 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

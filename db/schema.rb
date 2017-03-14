@@ -11,9 +11,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20170314004924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "grad_classes", force: :cascade do |t|
+    t.string   "name"
+    t.time     "startTime"
+    t.time     "endTime"
+    t.integer  "maximumStudents"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "professor_id"
+  end
+
+  add_index "grad_classes", ["professor_id"], name: "index_grad_classes_on_professor_id", using: :btree
+
+  create_table "gradclasses_students", id: false, force: :cascade do |t|
+    t.integer "gradclass_id", null: false
+    t.integer "student_id",   null: false
+  end
+
+  create_table "professors", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string   "name"
+    t.date     "year"
+    t.integer  "ssn"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "grad_classes", "professors"
 end
