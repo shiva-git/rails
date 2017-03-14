@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
   
- get '/' => 'api#home'
- 
- 
+get '/', to: 'api#home'
 get 'api/class', to: 'api#displayform'
 post 'api/class', to: 'api#create'
+get '*path', to: 'api#noroute'
 
  #get 'api/class' => 'api#displayform'
  

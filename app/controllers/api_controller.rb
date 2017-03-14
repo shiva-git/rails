@@ -13,9 +13,15 @@ class ApiController < ApplicationController
         render json: params
     end
     
+    def noroute
+        
+    end
+    
     private
         def gradclass_params
             params.permit(:name, :startTime, :endTime, :maximumStudents)
         end
+        
+       
     
 end
