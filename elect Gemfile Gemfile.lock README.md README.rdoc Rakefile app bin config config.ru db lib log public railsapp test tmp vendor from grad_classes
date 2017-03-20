@@ -1,0 +1,10 @@
+               List of relations
+ Schema |         Name         | Type  | Owner  
+--------+----------------------+-------+--------
+ public | grad_classes         | table | ubuntu
+ public | gradclasses_students | table | ubuntu
+ public | professors           | table | ubuntu
+ public | schema_migrations    | table | ubuntu
+ public | students             | table | ubuntu
+(5 rows)
+

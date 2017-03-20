@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <title>UnRegistration Form</title>
+        
+    </head>
+<body>
+
+<form action="/api/class/<%= @classname %>/unregister" method="post">
+    
+  Name:<br>
+      <input 
+        type="text" 
+        name="name">
+        <br>
+  Year:<br>
+      <input 
+        type = "number" 
+        name = "year">
+        <br>
+  SSN:<br>
+    <input 
+        type = "number" 
+        name = "ssn" 
+        pattern = "^d{3}-d{2}-d{4}$" 
+        title = "###-##-####">
+  <br>
+  <%= @classname %>
+  <input 
+    type="submit" 
+    value="Submit">
+    
+</form> 
+</body>
+</html>

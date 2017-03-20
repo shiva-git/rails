@@ -1,9 +1,22 @@
 Rails.application.routes.draw do
   
-get '/', to: 'api#home'
-get 'api/class', to: 'api#displayform'
-post 'api/class', to: 'api#create'
-get '*path', to: 'api#noroute'
+get '/' =>'api#home'
+get 'api/class' => 'api#displayClassForm'
+post 'api/class' => 'api#create'
+
+get 'api/class/:id' => 'api#classdetails'
+
+get 'api/class/:id/register' => 'api#displayRegisterForm'
+
+post '/api/class/:id/register' => 'api#register'
+
+get 'api/class/:id/unregister' => 'api#displayUnRegisterForm'
+
+post '/api/class/:id/unregister' => 'api#unregister'
+
+get '*path' => 'api#noroute'
+
+
 
  #get 'api/class' => 'api#displayform'
  

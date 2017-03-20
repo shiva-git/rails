@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170314204649) do
+ActiveRecord::Schema.define(version: 20170314004924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "grad_classes", force: :cascade do |t|
+  create_table "gradclasses", force: :cascade do |t|
     t.string   "name"
     t.time     "startTime"
     t.time     "endTime"
@@ -24,15 +24,17 @@ ActiveRecord::Schema.define(version: 20170314204649) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "professor_id"
-    t.string   "professorName"
   end
 
-  add_index "grad_classes", ["professor_id"], name: "index_grad_classes_on_professor_id", using: :btree
+  add_index "gradclasses", ["professor_id"], name: "index_gradclasses_on_professor_id", using: :btree
 
   create_table "gradclasses_students", id: false, force: :cascade do |t|
     t.integer "gradclass_id", null: false
     t.integer "student_id",   null: false
   end
+
+  add_index "gradclasses_students", ["gradclass_id", "student_id"], name: "index_gradclasses_students_on_gradclass_id_and_student_id", using: :btree
+  add_index "gradclasses_students", ["student_id", "gradclass_id"], name: "index_gradclasses_students_on_student_id_and_gradclass_id", using: :btree
 
   create_table "professors", force: :cascade do |t|
     t.string   "name"
@@ -42,11 +44,11 @@ ActiveRecord::Schema.define(version: 20170314204649) do
 
   create_table "students", force: :cascade do |t|
     t.string   "name"
-    t.date     "year"
+    t.integer  "year"
     t.integer  "ssn"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "grad_classes", "professors"
+  add_foreign_key "gradclasses", "professors"
 end

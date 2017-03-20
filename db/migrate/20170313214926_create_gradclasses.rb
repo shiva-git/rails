@@ -1,7 +1,7 @@
-class CreateGradClasses < ActiveRecord::Migration
+class CreateGradclasses < ActiveRecord::Migration
   def change
-    create_table :grad_classes do |t|
-      t.string :name
+    create_table :gradclasses do |t|
+      t.string :name , unique: true
       t.time :startTime
       t.time :endTime
       t.integer :maximumStudents
