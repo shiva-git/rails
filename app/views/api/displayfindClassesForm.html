@@ -2,22 +2,21 @@
 <html>
     <head>
         
-        <title>UnRegistration Form</title>
+        <title>List My Professor</title>
         
     </head>
 <body>
 
-<form action="/api/class/<%= @classname %>/unregister" method="post">
-    
+<form action="/api/student/classes" method="post">
+    <p>
+        
+        Provide your name and ssn to find your classes
+        
+    </p>
   Name:<br>
       <input 
         type="text" 
         name="name">
-        <br>
-  Year:<br>
-      <input 
-        type = "number" 
-        name = "year">
         <br>
   SSN:<br>
     <input 
@@ -32,4 +31,4 @@
     
 </form> 
 </body>
-</html>
+</html><x></x>

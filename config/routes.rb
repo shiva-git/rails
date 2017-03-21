@@ -1,18 +1,23 @@
 Rails.application.routes.draw do
   
 get '/' =>'api#home'
+
 get 'api/class' => 'api#displayClassForm'
 post 'api/class' => 'api#create'
 
 get 'api/class/:id' => 'api#classdetails'
 
 get 'api/class/:id/register' => 'api#displayRegisterForm'
-
-post '/api/class/:id/register' => 'api#register'
+post 'api/class/:id/register' => 'api#register'
 
 get 'api/class/:id/unregister' => 'api#displayUnRegisterForm'
+post 'api/class/:id/unregister' => 'api#unregister'
 
-post '/api/class/:id/unregister' => 'api#unregister'
+get 'api/student/professors' => 'api#displayfindProfessorsForm'
+post 'api/student/professors' => 'api#findProfessors'
+
+get 'api/student/classes' => 'api#displayfindClassesForm'
+post 'api/student/classes' => 'api#findClasses'
 
 get '*path' => 'api#noroute'
 

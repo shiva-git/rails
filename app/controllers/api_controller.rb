@@ -115,6 +115,29 @@ class ApiController < ApplicationController
         # render json: params
     end
     
+    def displayfindProfessorsForm
+        
+    end
+    def findProfessors
+        professorarray =[]
+        
+        student = Student.find_by name: params[:name] ,ssn: params[:ssn]
+        
+        professorarray =  Student.student_allProfessors(student)
+       
+       render json: professorarray
+    end
+    
+    def findClasses
+        studentclasses =[]
+        
+        student = Student.find_by name: params[:name] ,ssn: params[:ssn]
+        
+        studentclasses =  Student.student_allClasses(student)
+       
+       render json: studentclasses
+    end
+    
     def noroute
         
     end
