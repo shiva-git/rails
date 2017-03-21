@@ -5,51 +5,42 @@ class ApiController < ApplicationController
     end
     
     def displayClassForm
+      
+    end
+    
+    def displayfindStudentsForm
         
     end
     
-    def create
-        #pid = Professor.create(professor_params)
-        #Gradclass.create(gradclass_params(pid))
+    def displayfindClassmatesForm
         
+    end
+    
+    def displayRegisterForm
+        @gradclassname = params[:id]
+    end
+    
+    def displayfindProfessorsForm
+        
+    end
+    
+    def displayfindClassesForm
+        
+    end
+    
+    def displayUnRegisterForm
+         @classname = params[:id]
+         #render json: params
+    end
+    
+    def create
         professor = Professor.create({"name" => params[:professorName]})
         professor.gradclasses.create({"name" => params[:name] , "startTime" => params[:startTime] ,"endTime" => params[:endTime],"maximumStudents" => params[:maximumStudents]})
         
         render json: params
     end
     
-    def classdetails
-        
-        render json: ( Gradclass.find_by name: params[:id] )
-    
-    end
-    
-    def displayfindStudentsForm
-        
-        
-    end
-    
-    def allStudents
-        
-        gradclass = Gradclass.find_by name: params[:name]
-        render json: ( Gradclass.class_allStudents(gradclass) )
-        
-    end
-    
-    def prof
-        
-        render json: ( Gradclass.class_professor(params[:id]) )
-    
-    end
-    
-    def displayRegisterForm
-        #render json: params
-        @gradclassname = params[:id]
-        
-    end
-    
     def register
-        
         gradclass = Gradclass.get_class_id(params[:id])
         
         if(Student.where(:ssn => params[:ssn]).exists?)
@@ -62,7 +53,6 @@ class ApiController < ApplicationController
             (#{gradclass_id}, #{student_id});"
             
             ActiveRecord::Base.connection.execute(sql)
-            
         else
             gradclass.students.create(studentclass_params)
             
@@ -81,20 +71,10 @@ class ApiController < ApplicationController
         #gradclasses_students_params(class_id,sid)
         #gradclasses_students.create(gradclasses_students_params(class_id,sid))
         
-        render json: params
-
-    end
-    
-    def displayUnRegisterForm
-     
-         @classname = params[:id]
-         #render json: params
+        render json: "You have been successfully registered"
     end
     
     def unregister
-        
-        
-        
         gradclass_obj = Gradclass.find_by name: params[:id]
         
         student=Student.find_by ssn: params[:ssn]
@@ -127,37 +107,80 @@ class ApiController < ApplicationController
         # render json: params
     end
     
-    def displayfindProfessorsForm
+    def classdetails
         
+        render json: ( Gradclass.find_by name: params[:id] )
     end
-    def findProfessors
-        professorarray =[]
-        
+
+    def allStudents
+        gradclass = Gradclass.find_by name: params[:name]
+        render json: ( Gradclass.class_allStudents(gradclass) )
+    end
+
+    def findClassmates
         student = Student.find_by name: params[:name] ,ssn: params[:ssn]
-        
-        professorarray =  Student.student_allProfessors(student)
-       
-       render json: professorarray
+        render json: ( Student.student_allClassmates(student) )
     end
     
-     def displayfindClassesForm
-        
+    def prof
+        render json: ( Gradclass.class_professor(params[:id]) )
     end
+
+    def findProfessors
+        professorarray =[]
+        student = Student.find_by name: params[:name] ,ssn: params[:ssn]
+        professorarray =  Student.student_allProfessors(student)
+        render json: professorarray
+    end
+    
+    
     
     def findClasses
         studentclasses =[]
-        
         student = Student.find_by name: params[:name] ,ssn: params[:ssn]
-        
         studentclasses =  Student.student_allClasses(student)
-       
-       render json: studentclasses
+        render json: studentclasses
+    end
+    
+    def getUnregisteredClasses
+        # get list of all classes
+        # get list of all students
+        # for each student get list of registered classes and compare with all classes list
+        # store the difference in a hash where key = student name and value = name of the unregistered classes
+        gradclassarray=[]
+        result = Hash.new()
+        gradclasses = Gradclass.all
+        gradclasses.each{ |gradclass| gradclassarray << gradclass.name}
+        students = Student.all
+        students.each { |student|  result[student.name] =  (gradclassarray - getStudentClases(student))  }
+        render json: result
+    end
+    
+    def getStudentClases(student)
+        registerClassesarray = []
+        registerClasses = student.gradclasses
+        registerClasses.each{  |r| registerClassesarray << r.name}
+        return registerClassesarray
+            
     end
     
     def noroute
         
     end
-    
+        
+    private
+        def studentclass_params()
+            student_params ={"name" => params[:name] , "year" => params[:year] , "ssn" => params[:ssn] }
+            
+            return student_params
+        end
+        
+    private 
+        def gradclasses_students_params(gradclass,student)
+            class_student_params = {"gradclass_id" => gradclass_id.id,"student_id" => student_id.id }
+            return class_student_params
+        end
+        
     # private
     #     def gradclass_params(pid)
             
@@ -174,19 +197,5 @@ class ApiController < ApplicationController
     #         return name
     #         #params.permit(params[:professorName])
     #     end
-        
-    private
-        def studentclass_params()
-            
-            student_params ={"name" => params[:name] , "year" => params[:year] , "ssn" => params[:ssn] }
-            return student_params
-        end
-        
-    private 
-        def gradclasses_students_params(gradclass,student)
-            
-            class_student_params = {"gradclass_id" => gradclass_id.id,"student_id" => student_id.id }
-            return class_student_params
-        end
 
 end

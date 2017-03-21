@@ -22,6 +22,10 @@ post 'api/student/professors' => 'api#findProfessors'
 get 'api/student/classes' => 'api#displayfindClassesForm'
 post 'api/student/classes' => 'api#findClasses'
 
+get 'api/student/classmates' => 'api#displayfindClassmatesForm'
+post 'api/student/classmates' => 'api#findClassmates'
+
+get 'api/all_classes' => 'api#getUnregisteredClasses'
 
 
 get '*path' => 'api#noroute'
