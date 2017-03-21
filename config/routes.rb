@@ -5,6 +5,9 @@ get '/' =>'api#home'
 get 'api/class' => 'api#displayClassForm'
 post 'api/class' => 'api#create'
 
+get 'api/class/students' => 'api#displayfindStudentsForm'
+post 'api/class/students' => 'api#allStudents'
+
 get 'api/class/:id' => 'api#classdetails'
 
 get 'api/class/:id/register' => 'api#displayRegisterForm'
@@ -18,6 +21,8 @@ post 'api/student/professors' => 'api#findProfessors'
 
 get 'api/student/classes' => 'api#displayfindClassesForm'
 post 'api/student/classes' => 'api#findClasses'
+
+
 
 get '*path' => 'api#noroute'
 

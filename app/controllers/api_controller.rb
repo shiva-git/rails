@@ -24,6 +24,18 @@ class ApiController < ApplicationController
     
     end
     
+    def displayfindStudentsForm
+        
+        
+    end
+    
+    def allStudents
+        
+        gradclass = Gradclass.find_by name: params[:name]
+        render json: ( Gradclass.class_allStudents(gradclass) )
+        
+    end
+    
     def prof
         
         render json: ( Gradclass.class_professor(params[:id]) )
@@ -126,6 +138,10 @@ class ApiController < ApplicationController
         professorarray =  Student.student_allProfessors(student)
        
        render json: professorarray
+    end
+    
+     def displayfindClassesForm
+        
     end
     
     def findClasses
