@@ -34,8 +34,7 @@ class ApiController < ApplicationController
     end
     
     def displayfindClassProfessorForm
-        
-        render json: "there you are"
+ 
         
     end
     
@@ -136,7 +135,12 @@ class ApiController < ApplicationController
     end
     
     def findClassProf
-        render json: "The professor hosting teh class is : #{ ( Gradclass.class_professor(params[:id]) )} "
+        
+        #gradclass = Gradclass.find_by name: params[:name]
+        
+        #render json: gradclass
+        
+        render json: "The professor hosting the class is : #{ ( Gradclass.class_professor(params[:name]) )} "
     end
 
     def findProfessors

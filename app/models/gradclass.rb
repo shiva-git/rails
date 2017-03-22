@@ -3,12 +3,9 @@ class Gradclass < ActiveRecord::Base
     has_and_belongs_to_many :students ,:uniq => true
     belongs_to :professor
   
-  
     def self.class_professor(classname)
-      grad_class = Gradclass.find_by name: classname
-      profname = grad_class.professor.name 
-      
-      return profname
+      gradclass = Gradclass.find_by name: classname
+      return gradclass.professor.name
     end
     
     def self.class_allStudents(gradclass)
