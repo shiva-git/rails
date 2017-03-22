@@ -8,6 +8,9 @@ post 'api/class' => 'api#create'
 get 'api/class/students' => 'api#displayfindStudentsForm'
 post 'api/class/students' => 'api#allStudents'
 
+get 'api/class/professor' => 'api#displayfindClassProfessorForm'
+post 'api/class/professor' => 'api#findClassProf'
+
 get 'api/class/:id' => 'api#classdetails'
 
 get 'api/class/:id/register' => 'api#displayRegisterForm'
@@ -27,6 +30,7 @@ post 'api/student/classmates' => 'api#findClassmates'
 
 get 'api/all_classes' => 'api#getUnregisteredClasses'
 
+ 
 
 get '*path' => 'api#noroute'
 

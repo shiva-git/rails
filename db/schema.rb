@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20170314004924) do
     t.integer "student_id",   null: false
   end
 
-  add_index "gradclasses_students", ["gradclass_id", "student_id"], name: "index_gradclasses_students_on_gradclass_id_and_student_id", using: :btree
-  add_index "gradclasses_students", ["student_id", "gradclass_id"], name: "index_gradclasses_students_on_student_id_and_gradclass_id", using: :btree
+  add_index "gradclasses_students", ["gradclass_id", "student_id"], name: "index_gradclasses_students_on_gradclass_id_and_student_id", unique: true, using: :btree
+  add_index "gradclasses_students", ["student_id", "gradclass_id"], name: "index_gradclasses_students_on_student_id_and_gradclass_id", unique: true, using: :btree
 
   create_table "professors", force: :cascade do |t|
     t.string   "name"

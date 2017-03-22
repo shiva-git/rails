@@ -33,30 +33,42 @@ class ApiController < ApplicationController
          #render json: params
     end
     
+    def displayfindClassProfessorForm
+        
+        render json: "there you are"
+        
+    end
+    
     def create
         professor = Professor.create({"name" => params[:professorName]})
         professor.gradclasses.create({"name" => params[:name] , "startTime" => params[:startTime] ,"endTime" => params[:endTime],"maximumStudents" => params[:maximumStudents]})
         
-        render json: params
+        render json: "Class #{params[:name]} has been created successfully "
     end
     
     def register
         gradclass = Gradclass.get_class_id(params[:id])
-        
-        if(Student.where(:ssn => params[:ssn]).exists?)
-            student = Student.find_by ssn: params[:ssn]
+        begin
+            if(Student.where(:ssn => params[:ssn]).exists?)
+                student = Student.find_by ssn: params[:ssn]
+                
+                student_id =student.id
+                gradclass_id = gradclass.id
+                sql = "INSERT INTO gradclasses_students VALUES (#{gradclass_id}, #{student_id});"
+                ActiveRecord::Base.connection.execute(sql)
+                render json: "You have been successfully registered"
+                
+            else
+                gradclass.students.create(studentclass_params)
+                render json: "You have been successfully registered"
+            end
             
-            student_id =student.id
-            gradclass_id = gradclass.id
-            
-            sql = "INSERT INTO gradclasses_students VALUES
-            (#{gradclass_id}, #{student_id});"
-            
-            ActiveRecord::Base.connection.execute(sql)
-        else
-            gradclass.students.create(studentclass_params)
-            
+             rescue ActiveRecord::RecordNotUnique
+             render json: "You have already been registered"
+             
         end
+       
+        
         
         #gradclass.students.create(studentclass_params)
         #class_id = Gradclass.get_class_id(params[:id])
@@ -71,7 +83,7 @@ class ApiController < ApplicationController
         #gradclasses_students_params(class_id,sid)
         #gradclasses_students.create(gradclasses_students_params(class_id,sid))
         
-        render json: "You have been successfully registered"
+        #render json: "You have been successfully registered"
     end
     
     def unregister
@@ -109,12 +121,13 @@ class ApiController < ApplicationController
     
     def classdetails
         
-        render json: ( Gradclass.find_by name: params[:id] )
+        render json: (Gradclass.find_by name: params[:id])
     end
 
     def allStudents
         gradclass = Gradclass.find_by name: params[:name]
-        render json: ( Gradclass.class_allStudents(gradclass) )
+        render json: "Following are the students register to the class #{params[:name]}
+        #{( Gradclass.class_allStudents(gradclass) )}"
     end
 
     def findClassmates
@@ -122,8 +135,8 @@ class ApiController < ApplicationController
         render json: ( Student.student_allClassmates(student) )
     end
     
-    def prof
-        render json: ( Gradclass.class_professor(params[:id]) )
+    def findClassProf
+        render json: "The professor hosting teh class is : #{ ( Gradclass.class_professor(params[:id]) )} "
     end
 
     def findProfessors
