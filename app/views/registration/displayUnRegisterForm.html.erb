@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        
+        <title>UnRegistration Form</title>
+        
+    </head>
+  
+  <body>
+
+    <form action="/api/class/<%= @classname %>/unregister" method="post">
+    
+      <label for="name">Name</label><br>
+  
+        <%= text_field_tag  'name', nil,:required => true %><br>
+    
+      <label for="year">Year</label><br>
+  
+        <%= number_field_tag 'year', nil, :max_length => 4,:required => true %><br>
+  
+      <label for="ssn">SSN</label><br>
+  
+        <%= number_field_tag 'ssn', nil, :pattern => '^(\d{3}-?\d{2}-?\d{4}|XXX-XX-XXXX)$', :required => true %><br>
+  
+      <%= button_to "Submit" %>
+    
+    </form> 
+  
+  </body>
+
+</html>
+  
+
+  <!--SSN:<br>
+    <input 
+        type = "number" 
+        name = "ssn" 
+        pattern = "^(\d{3}-?\d{2}-?\d{4}|XXX-XX-XXXX)$"
+        title = "###-##-####"
+        required>
+  <br>-->
+  
+
+  <!--<input -->
+  <!--  type="submit" -->
+  <!--  value="Submit">-->
+    

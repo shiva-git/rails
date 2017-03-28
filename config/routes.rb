@@ -1,36 +1,36 @@
 Rails.application.routes.draw do
   
 get '/' =>'api#home'
+get 'api/all_classes' => 'student#findUnregisteredClasses'
 
-get 'api/class' => 'api#displayClassForm'
-post 'api/class' => 'api#create'
+get 'api/class' => 'gradclass#displayClassForm'
+post 'api/class' => 'gradclass#create'
 
-get 'api/class/students' => 'api#displayfindStudentsForm'
-post 'api/class/students' => 'api#allStudents'
+get 'api/class/students' => 'gradclass#displayfindStudentsForm'
+post 'api/class/students' => 'gradclass#allStudents'
 
-get 'api/class/professor' => 'api#displayfindClassProfessorForm'
-post 'api/class/professor' => 'api#findClassProf'
+get 'api/class/professor' => 'gradclass#displayfindClassProfessorForm'
+post 'api/class/professor' => 'gradclass#findClassProf'
 
-get 'api/class/:id' => 'api#classdetails'
+get 'api/class/:id' => 'gradclass#classdetails'
 
-get 'api/class/:id/register' => 'api#displayRegisterForm'
-post 'api/class/:id/register' => 'api#register'
 
-get 'api/class/:id/unregister' => 'api#displayUnRegisterForm'
-post 'api/class/:id/unregister' => 'api#unregister'
+get 'api/class/:id/register' => 'registration#displayRegisterForm'
+post 'api/class/:id/register' => 'registration#register'
 
-get 'api/student/professors' => 'api#displayfindProfessorsForm'
-post 'api/student/professors' => 'api#findProfessors'
+get 'api/class/:id/unregister' => 'registration#displayUnRegisterForm'
+post 'api/class/:id/unregister' => 'registration#unregister'
 
-get 'api/student/classes' => 'api#displayfindClassesForm'
-post 'api/student/classes' => 'api#findClasses'
 
-get 'api/student/classmates' => 'api#displayfindClassmatesForm'
-post 'api/student/classmates' => 'api#findClassmates'
+get 'api/student/professors' => 'student#displayfindProfessorsForm'
+post 'api/student/professors' => 'student#findProfessors'
 
-get 'api/all_classes' => 'api#getUnregisteredClasses'
+get 'api/student/classes' => 'student#displayfindClassesForm'
+post 'api/student/classes' => 'student#findClasses'
 
- 
+get 'api/student/classmates' => 'student#displayfindClassmatesForm'
+post 'api/student/classmates' => 'student#findClassmates'
+
 
 get '*path' => 'api#noroute'
 
