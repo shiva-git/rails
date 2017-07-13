@@ -51,7 +51,7 @@ class Gradclass < ActiveRecord::Base
     
     def self.get_class(classname)
       
-       begin
+      begin
         gradclass = Gradclass.new
         gradclass=Gradclass.find_by name: classname
         return gradclass
@@ -59,7 +59,7 @@ class Gradclass < ActiveRecord::Base
         gradclass.valid?
         gradclass.blank?
         return false
-     end
+      end
     end
 
 end
